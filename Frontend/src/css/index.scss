@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 li {
@@ -61,6 +62,18 @@ a {
     color: red;
   }
 }
+
+@font-face {
+  font-family: "Poppins";
+  //Regular.tt
+  src: url("fonts/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Poppins_Bold";
+  //Regular.tt
+  src: url("fonts/Poppins-Bold.ttf");
+}
 .header {
   position: fixed;
 
@@ -80,6 +93,7 @@ a {
     .logo {
       a {
         font-size: 30px;
+        font-family: "Poppins_Bold", sans-serif;
       }
     }
     align-items: center;
@@ -324,6 +338,7 @@ a {
     transform: translateX(100%);
   }
   100% {
+    ///
     transform: translateX(0%);
   }
 }
@@ -410,6 +425,34 @@ a {
 
       background-color: white;
       color: black;
+    }
+  }
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  .pagination__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    li {
+      cursor: pointer;
+      transition: 0.3s;
+      padding: 10px 18px;
+      border-radius: 5px;
+      background-color: white;
+      border: 1px solid black;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+      &.active {
+        background-color: black;
+        color: white;
+      }
     }
   }
 }
@@ -530,7 +573,7 @@ a {
         border: 1px solid black;
 
         border-radius: 0px;
-
+        transition: 0.5s;
         padding: 5px 10px;
         font-size: 16px;
         outline: none;
@@ -585,12 +628,12 @@ a {
         border-radius: 50%;
         .sales {
           color: white;
-          font-size: 14px;
+          font-size: 12px;
         }
         .old_price {
           text-decoration: line-through;
           color: red;
-          font-size: 12px;
+          font-size: 10px;
         }
         .newprice {
           font-weight: bold;
@@ -605,6 +648,7 @@ a {
 
         visibility: visible;
       }
+
       img {
         width: 100%;
         height: 100%;
@@ -618,11 +662,10 @@ a {
         width: 100%;
         height: 100%;
         top: 50%;
-
         left: 50%;
         background-color: rgba(0, 0, 0, 0.5);
         transform: translate(-50%, -50%);
-        transition: 0.2s;
+        transition: 0.4s;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -977,6 +1020,7 @@ a {
         width: 100%;
 
         text-align: left;
+
         word-break: break-all;
       }
       .buttons {
@@ -1000,10 +1044,39 @@ a {
       }
       .comment_block_img {
         display: flex;
-        align-items: center;
-        gap: 10px;
+        flex-direction: column;
+        justify-content: center;
+
         font-size: 20px;
         font-weight: bold;
+        .blocks {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        position: relative;
+        .Date {
+          font-size: 12px;
+          display: flex;
+          flex-direction: column;
+          justify-content: left;
+          position: absolute;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+
+          background-color: white;
+          padding: 5px;
+          transition: 0.6s;
+          opacity: 0;
+        }
+        &:hover {
+          .Date {
+            opacity: 1;
+          }
+        }
         img {
           width: 80%;
           border-radius: 50%;
@@ -1064,6 +1137,7 @@ a {
     height: 40px;
     display: flex;
     z-index: 10;
+    color: black;
     justify-content: center;
     align-items: center;
     background-color: white;
@@ -1072,6 +1146,84 @@ a {
     &:hover {
       background-color: black;
       color: white;
+    }
+  }
+  .block_main_from {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 10px;
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    form {
+      width: 100%;
+      height: 100%;
+      display: flex;
+
+      flex-direction: column;
+      gap: 16px;
+      input {
+        padding: 7px;
+        font-size: 18px;
+        border: 1px solid black;
+        outline: none;
+      }
+      textarea {
+        padding: 7px;
+        font-size: 18px;
+        border: 1px solid black;
+        outline: none;
+        min-height: 100%;
+        width: 100%;
+        height: 100px;
+        max-height: 200px;
+        max-width: 100%;
+        min-width: 100%;
+        scroll-behavior: smooth;
+        overflow: auto;
+      }
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+        button {
+          transition: 0.6s;
+          padding: 7px;
+          &:first-child {
+            background-color: green;
+            color: white;
+            border: 1px solid green;
+            transition: 0.5s;
+            &:hover {
+              background-color: white;
+              color: green;
+            }
+          }
+          &:last-child {
+            background-color: red;
+            color: white;
+            border: 1px solid red;
+            transition: 0.5s;
+            &:hover {
+              background-color: white;
+              color: red;
+            }
+          }
+          width: 50%;
+          font-size: 18px;
+          border: 1px solid black;
+          outline: none;
+          cursor: pointer;
+          transition: 0.3s;
+          &:hover {
+            background-color: black;
+            color: white;
+          }
+        }
+      }
     }
   }
   .block_main_photo {
@@ -1376,6 +1528,47 @@ a {
     }
     h1 {
       color: black;
+    }
+  }
+}
+.about {
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  .wrapper {
+    .about__text {
+      font-size: 16px;
+      color: grey;
+      .desc {
+        font-size: 16px;
+        color: black;
+      }
+      .plus {
+        color: green;
+        font-size: 16px;
+        font-weight: 700;
+        ul {
+          list-style: none;
+          li {
+            font-size: 16px;
+            color: black;
+          }
+        }
+      }
+      .minus {
+        color: red;
+        font-size: 16px;
+        font-weight: 700;
+        ul {
+          list-style:   //кружочки
+            li {
+            font-size: 16px;
+            color: black;
+          }
+        }
+      }
     }
   }
 }
@@ -1726,6 +1919,24 @@ a {
       flex-direction: column;
       gap: 20px;
     }
+    .btn_write {
+      display: table;
+      margin: 10px 0;
+      background-color: white;
+      color: black;
+      border: 1px solid black;
+      padding: 10px;
+      border-radius: 0;
+      outline: none;
+
+      cursor: pointer;
+      transition: 0.6s;
+      &:hover {
+        background-color: black;
+        color: white;
+        border: 1px solid white;
+      }
+    }
     .contacts {
       ul {
         li {
@@ -2032,6 +2243,9 @@ a {
     flex-direction: column-reverse;
     justify-content: space-between;
   }
+  .comment .commets_main .not_comment {
+    font-size: 14px;
+  }
   .comment .inputs_register input {
     padding: 10px;
     font-size: 20px;
@@ -2056,8 +2270,21 @@ a {
   .comment .commets_main .comment_block .buttons {
     padding-right: 5px;
     display: flex;
-    gap: 5px;
+    gap: 2px;
     flex-direction: column;
+    font-size: 13px;
+    button {
+      padding: 5px;
+      border: 1px solid black;
+      outline: none;
+      cursor: pointer;
+      background-color: white;
+      transition: all 0.5s ease;
+      &:hover {
+        background-color: black;
+        color: white;
+      }
+    }
   }
   .comment_block_img {
     display: flex;
@@ -2090,8 +2317,47 @@ a {
     width: 40%;
     cursor: pointer;
   }
+  .comment .commets_main .comment_block .comment_block_img {
+    display: flex;
+    justify-content: none;
+    align-items: right;
+    font-size: 16px;
+
+    .Date {
+      padding: 0;
+      font-size: 10px;
+      text-align: center;
+    }
+  }
 }
 @media (max-width: 535px) {
+  .footer .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 20px;
+    .btn_write {
+      margin: 20px auto;
+    }
+    ul {
+      display: flex;
+      flex-direction: row;
+      li {
+        a {
+          font-size: 12px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+  .comment .commets_main .comment_block .comment_block_img .Date {
+    display: none;
+  }
   .animate {
     margin: 100px auto 0 auto;
   }
@@ -2132,8 +2398,25 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-align: center;
     flex-direction: column;
     gap: 20px;
+    .btn_write {
+      margin: 20px auto;
+    }
+    ul {
+      display: flex;
+      flex-direction: row;
+      li {
+        a {
+          font-size: 12px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+      }
+    }
   }
   .comment .commets_main .comment_block {
     display: flex;

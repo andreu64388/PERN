@@ -10,7 +10,6 @@ import { AddComment, DeleteComment, GetProducts } from './../store/CreateProduct
 import { useAppDispatch, useAppSelector } from '../store/store';
 import Footer from './Footer';
 import Forms from './Forms';
-//как сделать в настройках слайды были на равныз растоянии и был адаптив
 
 var settings = {
    dots: false,
@@ -53,7 +52,6 @@ var settings = {
 };
 
 
-
 const ProductFull: FC = () => {
    const { id } = useParams();
    const id_product = Number(id);
@@ -79,8 +77,6 @@ const ProductFull: FC = () => {
    const commentRef = React.createRef<any>();
 
    const ScrollDown = () => {
-
-      // скролл вниз
       commentRef.current.scrollTo(0, commentRef.current.scrollHeight);
    }
    useEffect(() => {
@@ -202,7 +198,18 @@ const ProductFull: FC = () => {
 
       }
    }
+   function FormatWithZero(value: number) {
+      return value < 10 ? `0${value}` : value;
+   }
 
+   function FormateTime(time: Date) {
+      let times = new Date(time)
+      let hours = times.getHours();
+      let minutes = times.getMinutes();
+      let seconds = times.getSeconds();
+      return `${FormatWithZero(hours)}:${FormatWithZero(minutes)}:${FormatWithZero(seconds)}`;
+
+   }
    return (
       <div className='animate'>
          <div className="wrapper product_fulss">
@@ -214,7 +221,9 @@ const ProductFull: FC = () => {
                   {productID?.name}
                </h1>
                <div className="description_full">
-                  <p>Sale: <span>{productID?.sale}%</span> </p>
+                  {productID?.sale != 0 ? (<p>Sale: <span>{productID?.sale}%</span> </p>) : (
+                     <></>
+                  )}
                   <p>Category: <span>{productID?.category}</span> </p>
                   <p>Years: <span>{productID?.years}</span> </p>
                   <p className='color'>Color:
@@ -318,12 +327,22 @@ const ProductFull: FC = () => {
                            <div key={index}>
                               <div className="comment_block" >
                                  <div className="comment_block_img">
-                                    <img src={`http://localhost:3001/User/${image}`} alt="" />
-                                    <p>{person_name || "User "}</p>
+                                    <div className="blocks">
+                                       <img src={`http://localhost:3001/User/${image}`} alt="" />
+                                       <p>{person_name || "User "}</p>
+                                    </div>
+                                    <div className="Date">
+
+                                       <p className="time">
+                                          {FormateTime(date)}
+
+                                       </p>
+                                       <p>{date.slice(0, 10)}</p>
+
+                                    </div>
+
                                  </div>
-                                 <div className="Date">
-                                    <p>{date.slice(0, 10)}</p>
-                                 </div>
+
                                  <div className="comment_block_text">
                                     <p>{description}</p>
                                  </div>

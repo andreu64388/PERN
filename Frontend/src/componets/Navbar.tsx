@@ -79,7 +79,7 @@ const Navbar: FC<INavbar> = ({ count }) => {
                               handleExit();
                            }}
                         >
-                           Выход
+                           Exit
                         </a>
                         :
 
@@ -87,7 +87,7 @@ const Navbar: FC<INavbar> = ({ count }) => {
                            onClick={() => setState(false)}
                            className='button_a'
                            to="/login">
-                           Вход
+                           Entrance
                         </Link>
 
 

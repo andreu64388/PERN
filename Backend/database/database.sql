@@ -95,8 +95,32 @@ VALUES ('Nike T-Shirt',90,'Nike T-Shirt is a buatiful T-Shirt','Shirt1.jpg','Clo
 ('Shorts Nike',40,'Shorts Nike is a buatiful Shorts','Shorts1.jpeg','Clothes','Black',2020,0,1,10,'Shorts'),
 ('Shorts Addidas',50,'Shorts Nike is a buatiful Shorts','Shorts2.jpg','Clothes','Black',2017,3,1,10,'Shorts');
 
+INSERT INTO product (name,price,description,img,category,color,years,sale,count,count_in_shop,unique_property)
+VALUES('Toys bear',50,'Toys car is a buatiful Toys bear','Toys1.jpg','Toys','Brown',2019,0,1,10,'Bear'),
+('Toys bear',44 , 'Toys car is a buatiful Toys bear','Toys2.jpg','Toys','Brown',2019,0,1,10,'Bear'),
 
-   CREATE TABLE comment(
+INSERT INTO product (name,price,description,img,category,color,years,sale,count,count_in_shop,unique_property)
+VALUES('Toys bear',90, 'Toys bear is a buatiful Toys ','Toys3.jpg','Toys','White',2022,13,1,10,'Bear');
+
+INSERT INTO product (name,price,description,img,category,color,years,sale,count,count_in_shop,unique_property)
+VALUES('Ball for football',50,'Ball for football is a buatiful Ball for football','Toys4.jpg','Toys','White',2019,0,1,10,'Ball'),
+('Ball for basketball',44 , 'Ball for basketball is a buatiful Ball for basketball','Toys6.jpg','Toys','White',2019,0,1,10,'Ball'),
+('Ball for volleyball',90, 'Ball for volleyball is a buatiful Ball for volleyball','Toys5.jpg','Toys','White',2022,13,1,10,'Ball');
+
+UPDATE product SET color = '#cda25f' where img = 'Toys1.jpg';
+UPDATE product SET color = '#8b4c29' where img = 'Toys2.jpg';
+UPDATE product SET color = '#ef7c23' where img = 'Toys4.jpg';
+UPDATE product SET color = '#ecc61d' where img = 'Toys6.jpg';
+
+INSERT INTO product (name,price,description,img,category,color,years,sale,count,count_in_shop,unique_property)
+VALUES('Toys bear',90, 'Toys bear is a buatiful Toys ','Toys3.jpg','Toys','White',2022,13,1,10,'Bear');
+INSERT INTO product (name,price,description,img,category,color,years,sale,count,count_in_shop,unique_property)
+VALUES('Ball for football',50, 'Ball for football is a buatiful Ball for football','Toys4.jpg','Toys','White',2022,13,1,10,'Bear');
+
+delete from product WHERE img = 'Toys1.jpg';
+
+DELETE from product where name = 'Toys car';
+      CREATE TABLE comment(
    id_comment serial PRIMARY KEY ,
    id_person INTEGER not null,
    id_product INTEGER not null,

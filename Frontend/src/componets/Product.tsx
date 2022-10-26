@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../store/store';
 import { AddBasket, GetProducts } from './../store/CreateProduct';
 import Footer from './Footer';
 const Product: FC = () => {
+
    const { product } = useAppSelector(state => state.product);
    const { user } = useAppSelector(state => state.auth);
    const [products, setProducts] = useState<any>(product);
@@ -16,13 +17,36 @@ const Product: FC = () => {
    const [option, setOption] = useState<any[]>(product);
    const [testColor, setTestColor] = useState<any[]>();
    const [unique_property, setUnique_property] = useState<any[]>();
-   //сделать пагинацию
    const [currentPage, setCurrentPage] = useState<number>(1);
+   const [PageNumbers, setPageNumbers] = useState<number[]>([]);
    const [postsPerPage] = useState<number>(6);
-   const [Pagination, setPagination] = useState<any[]>([]);
-
    const dispatch = useAppDispatch()
    const navigate = useNavigate();
+
+   useEffect(() => {
+
+      const pages = [];
+      for (let i = 1; i <= Math.ceil(option.length / postsPerPage); i++) {
+         pages.push(i);
+      }
+      setPageNumbers(pages);
+      const New = option.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+      setProducts(New);
+
+   }, [currentPage, filter]);
+
+   useEffect(() => {
+
+      if (filter === products) {
+
+         setOption(product)
+         setFilter(product)
+         setProducts(product.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage));
+         setCurrentPage(1)
+         paginate(1)
+      }
+
+   }, [filter]);
 
    useEffect(() => {
       if (!user) {
@@ -50,6 +74,7 @@ const Product: FC = () => {
                if (unique_property?.filter(item => item.checked).map(item => item.unique_property).includes(item.unique_property) && testColor.filter(item => item.checked).map(item => item.color).includes(item.color)) {
                   return item;
                }
+
             }
             )
 
@@ -66,7 +91,6 @@ const Product: FC = () => {
                }
             }
             )
-
          const product = productNew.filter((item: any) => item !== undefined);
 
          setProducts(product)
@@ -85,10 +109,22 @@ const Product: FC = () => {
 
          setProducts(product)
 
+
       } else {
          setProducts(option)
+
       }
    }, [unique_property, testColor])
+
+   const paginate = (pageNumber: number) => {
+      window.scrollTo(0, 0);
+      if (pageNumber === currentPage) return
+      const indexOfLastPage = pageNumber * postsPerPage;
+      const indexOfFirstPage = indexOfLastPage - postsPerPage;
+      const currentPages = products.slice(indexOfFirstPage, indexOfLastPage);
+      setCurrentPage(pageNumber);
+      setProducts(currentPages);
+   }
 
    const handleChangePrice = (value: string) => {
       setSortPrice(value)
@@ -96,15 +132,217 @@ const Product: FC = () => {
       setSortYear("Years")
       const result = "price"
       if (value === "ascending") {
-         const newProduct = [...products].sort((a: any, b: any) => a[result] - b[result])
-         setProducts(newProduct)
+         if (filter == "Clothes"
+            || filter == "Toys"
+            || filter == "Phone"
+
+         ) {
+
+            const product = [...products].sort((a: any, b: any) => a[result] - b[result]);
+            setProducts(product)
+
+
+
+         }
+         else {
+            setCurrentPage(1)
+            //вернуть все результаты тоолько там где есть скида поменять  цену на цену со скидой
+            const testproduct = option.map((item) => {
+               if (item.sale) {
+                  return { ...item, price: Math.round(item.price - item.price * item.sale / 100) }
+               }
+               return item
+
+            })
+
+
+            const product = [...testproduct].sort((a: any, b: any) => a[result] - b[result]);
+            const productNew = product.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+            setProducts(productNew)
+            setOption(product)
+
+            setCurrentPage(1)
+         }
+
+
       }
       else if (value === "descending") {
-         const newProduct = [...products].sort((a: any, b: any) => b[result] - a[result])
-         setProducts(newProduct)
+         if (filter == "Clothes"
+            || filter == "Toys"
+            || filter == "Phone"
+
+         ) {
+            const product = [...products].sort((a: any, b: any) => b[result] - a[result]);
+            setProducts(product)
+
+
+         }
+         else {
+            const testproduct = option.map((item) => {
+               if (item.sale) {
+                  return { ...item, price: Math.round(item.price - item.price * item.sale / 100) }
+               }
+               return item
+
+            })
+
+            const product = [...testproduct].sort((a: any, b: any) => b[result] - a[result]);
+            const productNew = product.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+            setProducts(productNew)
+            setOption(product)
+            setCurrentPage(1)
+         }
       }
       else {
-         setProducts(product)
+         setProducts(products)
+
+      }
+   }
+
+   const handleChangeYears = (value: string) => {
+      setSortYear(value)
+      setSortPrice("Price")
+      setSortSale("Sale")
+      const result = "years"
+      if (value === "ascending") {
+         if (filter == "Clothes"
+            || filter == "Toys"
+            || filter == "Phone"
+
+         ) {
+            const product = [...products].sort((a: any, b: any) => a[result] - b[result]);
+            setProducts(product)
+
+         }
+         else {
+            const product = [...option].sort((a: any, b: any) => a[result] - b[result]);
+            const productNew = product.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+            setProducts(productNew)
+            setOption(product)
+            setCurrentPage(1)
+         }
+
+
+      }
+      else if (value === "descending") {
+         if (filter == "Clothes"
+            || filter == "Toys"
+            || filter == "Phone"
+
+         ) {
+            const product = [...products].sort((a: any, b: any) => b[result] - a[result]);
+            setProducts(product)
+
+         }
+         else {
+            const product = [...option].sort((a: any, b: any) => b[result] - a[result]);
+            const productNew = product.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+            setProducts(productNew)
+            setOption(product)
+            setCurrentPage(1)
+         }
+      }
+      else {
+         setProducts(products)
+      }
+   }
+
+   // const handleChangeSale = (value: string) => {
+   //    setSortSale(value)
+   //    setSortPrice("Price")
+   //    setSortYear("Years")
+   //    const result = "sale"
+   //    if (value === "ascending") {
+   //       if (filter == "Clothes"
+   //          || filter == "Shoes"
+   //          || filter == "Phone"
+
+   //       ) {
+   //          const product = [...products].sort((a: any, b: any) => a[result] - b[result]);
+   //          setProducts(product)
+
+
+   //       }
+   //       else {
+   //          const product = [...option].sort((a: any, b: any) => a[result] - b[result]);
+   //          const productNew = product.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+   //          setProducts(productNew)
+   //          setOption(product)
+   //          setCurrentPage(1)
+
+   //       }
+
+
+   //    }
+   //    else if (value === "descending") {
+   //       if (filter == "Clothes"
+   //          || filter == "Shoes"
+   //          || filter == "Phone"
+
+   //       ) {
+   //          const product = [...products].sort((a: any, b: any) => b[result] - a[result]);
+   //          setProducts(product)
+
+   //       }
+   //       else {
+   //          const product = [...option].sort((a: any, b: any) => b[result] - a[result]);
+   //          const productNew = product.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+   //          setProducts(productNew)
+   //          setOption(product)
+   //          setCurrentPage(1)
+   //       }
+   //    }
+   //    else {
+   //       setProducts(products)
+
+   //    }
+   // }
+
+   const handleChangeSale = (value: string) => {
+      setSortSale(value)
+      setSortPrice("Price")
+      setSortYear("Years")
+      const result = "sale"
+      if (value === "ascending") {
+         if (filter == "Clothes"
+            || filter == "Toys"
+            || filter == "Phone"
+
+         ) {
+            const product = [...products].sort((a: any, b: any) => a[result] - b[result]);
+            setProducts(product)
+
+         }
+         else {
+            const product = [...option].sort((a: any, b: any) => a[result] - b[result]);
+            const productNew = product.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+            setProducts(productNew)
+            setOption(product)
+            setCurrentPage(1)
+         }
+
+
+      }
+      else if (value === "descending") {
+         if (filter == "Clothes"
+            || filter == "Toys"
+            || filter == "Phone"
+
+         ) {
+            const product = [...products].sort((a: any, b: any) => b[result] - a[result]);
+            setProducts(product)
+
+         }
+         else {
+            const product = [...option].sort((a: any, b: any) => b[result] - a[result]);
+            const productNew = product.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+            setProducts(productNew)
+            setOption(product)
+            setCurrentPage(1)
+         }
+      }
+      else {
+         setProducts(products)
       }
    }
    const Filter = (valueOfFilter: string | any) => {
@@ -117,9 +355,6 @@ const Product: FC = () => {
          setSortYear("");
          setSortSale("");
          setResearch("")
-         setProducts(product)
-         setOption(product)
-         setFilter(product);
          setUnique_property(undefined)
          setTestColor(undefined)
 
@@ -136,51 +371,18 @@ const Product: FC = () => {
 
    }
 
-   const handleChangeYears = (value: string) => {
-      setSortYear(value)
-      setSortPrice("Price")
-      setSortSale("Sale")
-      const result = "years"
-      if (value === "ascending") {
-         const newProduct = [...products].sort((a: any, b: any) => a[result] - b[result])
-         setProducts(newProduct)
-      }
-      else if (value === "descending") {
-         const newProduct = [...products].sort((a: any, b: any) => b[result] - a[result])
-         setProducts(newProduct)
-      }
-      else {
-         setProducts(product)
-      }
-   }
-   const handleChangeSale = (value: string) => {
-      setSortSale(value)
-      setSortPrice("Price")
-      setSortYear("Years")
-      const result = "sale"
-      if (value === "ascending") {
-         const newProduct = [...products].sort((a: any, b: any) => a[result] - b[result])
-         setProducts(newProduct)
-      }
-      else if (value === "descending") {
-         const newProduct = [...products].sort((a: any, b: any) => b[result] - a[result])
-         setProducts(newProduct)
-      }
-      else {
-         setProducts(product)
-      }
-   }
    const ResetAllFilters = () => {
       setSortPrice("");
       setSortYear("");
       setSortSale("");
       setResearch("")
-      setProducts(product)
+      setCurrentPage(1)
+      setProducts(products)
       setOption(product)
       Filter(products)
 
    }
-   //тут переделать
+
    const AddToBasket = (item: any) => {
       if (Number(item.count) == Number(item.count_in_shop)) {
          alert("Товар закончился")
@@ -202,7 +404,6 @@ const Product: FC = () => {
       const ArrayOfPrtoperty = product.filter((item: any) => item.category === category).map((item: any) => {
          return item
       });
-
       const Sets = Array.from(new Set(ArrayOfPrtoperty.map((item: any) => item.unique_property)))
       const ArrayOfUniqueProperty = Sets.map((item: any) => {
          const result = {
@@ -224,6 +425,7 @@ const Product: FC = () => {
          )
       )
    }
+
    const ColorFirFilter = (category: string) => {
       const ArrayOfPrtoperty = product.filter((item: any) => item.category === category).map((item: any) => {
          return item
@@ -287,15 +489,12 @@ const Product: FC = () => {
             <div className="products__input">
 
                <div className="input">
-                  <h1>Research</h1>
-                  <input type="text"
-                     placeholder="Search"
-                     onChange={(e: ChangeEvent<HTMLInputElement>) => setResearch(e.target.value)}
-                     value={research}
-                  />
+
                   <h1>Category</h1>
                   <div className="categors">
-                     <button style={filter === products ? { background: "black", color: "white" } : {}}
+                     <button style={filter !== "Phone" && filter !== "Clothes" && filter !== "Toys"
+
+                        ? { background: "black", color: "white" } : {}}
                         onClick={() => Filter(products)} >All</button>
                      <button style={filter === "Phone" ? { background: "black", color: "white" } : {}}
                         onClick={() => Filter("Phone")} >Phone</button>
@@ -303,8 +502,8 @@ const Product: FC = () => {
                         style={filter === "Clothes" ? { background: "black", color: "white" } : {}}
                         onClick={() => Filter("Clothes")} >Clothes</button>
                      <button
-                        style={filter === "book" ? { background: "black", color: "white" } : {}}
-                        onClick={() => Filter("book")} >Book</button>
+                        style={filter === "Toys" ? { background: "black", color: "white" } : {}}
+                        onClick={() => Filter("Toys")} >Toys</button>
                   </div>
                   {
                      (testColor === undefined || testColor.length === 0) ?
@@ -321,8 +520,11 @@ const Product: FC = () => {
                                  checked={testColor[i].checked}
                                  onChange={() => handlerChangeColor(i)} />
                               <label htmlFor={index.color}>
-                                 <p className={testColor[i].checked ? 'circle active' : 'circle'}
-                                    style={{ background: index.color }}
+                                 <p style={index.color == "White" ? {
+                                    background: index.color, outline: "1px solid black"
+                                 } : { background: index.color }}
+                                    className={testColor[i].checked ? 'circle active' : 'circle'}
+
                                  >
                                  </p></label>
                            </p>
@@ -383,21 +585,29 @@ const Product: FC = () => {
                      const { id_product, img } = item;
                      return (
                         <div className="product" key={index}>
-                           {item.sale !== 0 && (
+                           {item.sale !== 0 ? (
                               <div className="sale">
                                  <p className='sales'>{item.sale}%</p>
-                                 <p className="old_price">
-                                    {item.price}$
-                                 </p>
-
                                  <p className="newprice">
                                     {
-                                       //округлить
-                                       Math.round(item.price - (item.price * item.sale) / 100)
+                                       item.price
                                     }$
                                  </p>
+                                 <p className="old_price">
+
+                                    {
+                                       Math.round(item.price + (item.price * item.sale) / 100)
+                                    }$
+
+                                 </p>
+
+
                               </div>
-                           )
+                           ) :
+                              <div className="sale">
+                                 {item.price}$
+                              </div>
+
                            }
                            <div className="choise_product">
                               <div className="blocks">
@@ -418,14 +628,43 @@ const Product: FC = () => {
                   }
                   )}
                </div>
+
             </div>
+            {
+               filter == "Phone" || filter == "Clothes" || filter == "Toys"
+                  ?
+                  <></>
+                  :
+                  <> <div className="pagination">
+                     <ul className="pagination__list">
+                        {PageNumbers?.map((number: number) => (
+                           <li key={number} className={currentPage === number ? 'active' : ''}
+                              onClick={() => paginate(number)}>
+                              {number}
+                           </li>
+                        ))}
+                     </ul>
+                  </div></>
+
+            }
          </div >
+
+
+
+
+
+
+
 
          <Footer />
       </div >
    )
 }
+
+
+
+
+
+
+
 export default Product
-
-
-

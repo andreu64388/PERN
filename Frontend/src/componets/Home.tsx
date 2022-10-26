@@ -63,10 +63,46 @@ const Home: FC = () => {
          <Slider_products category={"Clothes"} product={product} />
          <div className="wrapper">
             <h1 className="title">
-               Book sale
+               Toys sale
             </h1>
          </div>
-         <Slider_products category={"book"} product={product} />
+         <Slider_products category={"Toys"} product={product} />
+
+         {/* About me and this webshop hisriry create       */}
+         <div className="about">
+            <div className="wrapper">
+               <div className="about__content">
+                  <h1 className="about__title">
+                     About this webshop
+                  </h1>
+                  <p className="about__text">
+                     This online store was created in order to quickly and inexpensively order a thing, although there are not so many products yet, but we will develop.
+                     Also in the future, we plan to add a chat, a personal account, and a lot of other things.
+                     Webshop  was created by me, I am a beginner in web development, but I am constantly learning and improving my skills.
+                     I hope you like my work.
+
+                     {/* more infornmtion about this shop */}
+
+                     Webshop have 3 categories: Phones, Clothes, Toys.
+                     In the Phones category, you can find a wide range of phones, from the cheapest to the most expensive.
+                     In the Clothes category, you can find a wide range of clothes, from the cheapest to the most expensive.
+                     In the Toys category, you can find a wide range of toys, from the cheapest to the most expensive.
+
+
+
+
+
+
+                  </p>
+
+               </div>
+            </div>
+
+
+
+         </div>
+
+
          <Footer />
       </div >
    )

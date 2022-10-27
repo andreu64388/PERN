@@ -24,7 +24,9 @@ const Footer: FC = () => {
          <div className="wrapper">
 
             <div className="logo">
-               WebShop
+               <Link to="/">
+                  WebShop
+               </Link>
             </div>
             <div className="adress_contact">
                <div className="adress">

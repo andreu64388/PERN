@@ -26,7 +26,10 @@ const Navbar: FC<INavbar> = ({ count }) => {
       setState(false)
       dispatch(Reset())
    }
-
+   const logo = () => {
+      window.scrollTo(0, 0)
+      setState(false)
+   }
    const PathBasket = `/basket/:${user_id}`;
    const PathProfile = `/profile/:${user_id}`;
    return (
@@ -43,7 +46,9 @@ const Navbar: FC<INavbar> = ({ count }) => {
             </div>
             <div className="logo">
                <Link to="/"
-                  onClick={() => setState(false)}
+                  onClick={() => logo()
+                  }
+
                >WebShop</Link>
             </div>
             <nav

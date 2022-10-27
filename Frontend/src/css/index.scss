@@ -1908,8 +1908,11 @@ a {
     display: flex;
     justify-content: space-between;
     .logo {
-      font-size: 25px;
+      a {
+        font-size: 25px;
+      }
     }
+
     align-items: center;
     a {
       color: white;
@@ -1918,6 +1921,9 @@ a {
       display: flex;
       flex-direction: column;
       gap: 20px;
+    }
+    .adress_contact {
+      font-size: 14px;
     }
     .btn_write {
       display: table;

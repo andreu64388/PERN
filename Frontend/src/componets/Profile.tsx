@@ -73,7 +73,6 @@ const Profile: FC = () => {
       setImage(img);
       setModalImage(true);
    }
-
    return (
       <div className="animate">
          <div className='wrapper'>
@@ -619,3 +618,6 @@ const ModalPhotos = ({ photo, ChangeModalImage }: any) => {
 }
 
 
+//Какие из полей в общей структуре пакета не являются обязательными
+
+//ответ

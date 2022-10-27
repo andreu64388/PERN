@@ -1919,7 +1919,7 @@ a {
   justify-content: space-between;
   align-items: center;
 }
-.footer .wrapper .logo {
+.footer .wrapper .logo a {
   font-size: 25px;
 }
 .footer .wrapper a {
@@ -1929,6 +1929,9 @@ a {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+.footer .wrapper .adress_contact {
+  font-size: 14px;
 }
 .footer .wrapper .btn_write {
   display: table;

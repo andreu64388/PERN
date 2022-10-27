@@ -81,12 +81,15 @@ const Home: FC = () => {
                      Webshop  was created by me, I am a beginner in web development, but I am constantly learning and improving my skills.
                      I hope you like my work.
 
-                     {/* more infornmtion about this shop */}
+
 
                      Webshop have 3 categories: Phones, Clothes, Toys.
                      In the Phones category, you can find a wide range of phones, from the cheapest to the most expensive.
                      In the Clothes category, you can find a wide range of clothes, from the cheapest to the most expensive.
                      In the Toys category, you can find a wide range of toys, from the cheapest to the most expensive.
+
+
+                     The end of the about section. Thank you for your attention.
 
 
 

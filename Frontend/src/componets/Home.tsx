@@ -67,8 +67,6 @@ const Home: FC = () => {
             </h1>
          </div>
          <Slider_products category={"Toys"} product={product} />
-
-         {/* About me and this webshop hisriry create       */}
          <div className="about">
             <div className="wrapper">
                <div className="about__content">

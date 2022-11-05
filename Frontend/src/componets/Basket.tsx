@@ -1,11 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { AddBasket, DeleteAllBasket, DeleteBasket, GetBasket } from './../store/CreateProduct';
 import { useAppSelector } from '../store/store';
+import { AddBasket, DeleteAllBasket, DeleteBasket, GetBasket } from './../store/CreateProduct';
 import Footer from './Footer';
 import Forms from './Forms';
-import { IBasket } from './../interface/interface';
 
 const Basket: FC = () => {
    const { id } = useParams();

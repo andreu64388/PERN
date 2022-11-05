@@ -1,12 +1,12 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from "react-toastify";
+import Typewriter from "typewriter-effect";
 import { DeleteMessage, DeleteUser, LogoutUser, UpdateImage, UpdateName } from '../store/CreateAuth';
+import { useAppDispatch, useAppSelector } from '../store/store';
 import { GetMe, UpdatePassword } from './../store/CreateAuth';
 import { GetOrders, GetTopPersons } from './../store/CreateProduct';
-import { useAppDispatch, useAppSelector } from '../store/store';
 import Footer from './Footer';
-import Loading from './Loading';
 const Profile: FC = () => {
    const [modal, setModal] = React.useState(false);
    const { id } = useParams();
@@ -20,6 +20,7 @@ const Profile: FC = () => {
    const [image, setImage] = useState<string | null>(null);
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
+
 
    useEffect(() => {
       if (!user) {
@@ -79,7 +80,33 @@ const Profile: FC = () => {
             <h1 className='title-profile'>
                My Profile
             </h1>
+
+
             <div className="line"></div>
+            <p
+               style={{
+                  fontSize: '18px',
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  marginTop: '20px'
+
+               }}
+
+
+            >
+               <Typewriter
+                  options={{
+                     strings: ['Hello, ' + user?.name + '!',
+                        'Welcome to your profile!',
+                        'Here you can see your orders and change your profile information!',
+                        'Have a nice day!'],
+
+
+                     autoStart: true,
+                     loop: true,
+                  }}
+               />
+            </p>
             <div className="profile">
                <div className="photo">
 
@@ -617,7 +644,3 @@ const ModalPhotos = ({ photo, ChangeModalImage }: any) => {
    )
 }
 
-
-//Какие из полей в общей структуре пакета не являются обязательными
-
-//ответ

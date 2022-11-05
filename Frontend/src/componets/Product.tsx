@@ -6,7 +6,7 @@ import { AddBasket, GetProducts } from './../store/CreateProduct';
 import Footer from './Footer';
 const Product: FC = () => {
 
-   const { product } = useAppSelector(state => state.product);
+   const { product, loading } = useAppSelector(state => state.product);
    const { user } = useAppSelector(state => state.auth);
    const [products, setProducts] = useState<any>(product);
    const [sortPrice, setSortPrice] = useState<string>("");
@@ -16,6 +16,7 @@ const Product: FC = () => {
    const [filter, setFilter] = useState<any>(product)
    const [option, setOption] = useState<any[]>(product);
    const [testColor, setTestColor] = useState<any[]>();
+   const [loadingState, setLoadingState] = useState<boolean>(loading);
    const [unique_property, setUnique_property] = useState<any[]>();
    const [currentPage, setCurrentPage] = useState<number>(1);
    const [PageNumbers, setPageNumbers] = useState<number[]>([]);
@@ -59,12 +60,14 @@ const Product: FC = () => {
       dispatch(GetProducts())
       setProducts(product)
       setFilter(product)
+      setLoadingState(loading)
 
    }, []);
 
    useEffect(() => {
       setProducts(product)
       setFilter(product)
+      setLoadingState(loading)
    }, [product])
 
    useEffect(() => {
@@ -141,12 +144,9 @@ const Product: FC = () => {
             const product = [...products].sort((a: any, b: any) => a[result] - b[result]);
             setProducts(product)
 
-
-
          }
          else {
             setCurrentPage(1)
-            //вернуть все результаты тоолько там где есть скида поменять  цену на цену со скидой
             const testproduct = option.map((item) => {
                if (item.sale) {
                   return { ...item, price: Math.round(item.price - item.price * item.sale / 100) }
@@ -247,57 +247,6 @@ const Product: FC = () => {
       }
    }
 
-   // const handleChangeSale = (value: string) => {
-   //    setSortSale(value)
-   //    setSortPrice("Price")
-   //    setSortYear("Years")
-   //    const result = "sale"
-   //    if (value === "ascending") {
-   //       if (filter == "Clothes"
-   //          || filter == "Shoes"
-   //          || filter == "Phone"
-
-   //       ) {
-   //          const product = [...products].sort((a: any, b: any) => a[result] - b[result]);
-   //          setProducts(product)
-
-
-   //       }
-   //       else {
-   //          const product = [...option].sort((a: any, b: any) => a[result] - b[result]);
-   //          const productNew = product.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
-   //          setProducts(productNew)
-   //          setOption(product)
-   //          setCurrentPage(1)
-
-   //       }
-
-
-   //    }
-   //    else if (value === "descending") {
-   //       if (filter == "Clothes"
-   //          || filter == "Shoes"
-   //          || filter == "Phone"
-
-   //       ) {
-   //          const product = [...products].sort((a: any, b: any) => b[result] - a[result]);
-   //          setProducts(product)
-
-   //       }
-   //       else {
-   //          const product = [...option].sort((a: any, b: any) => b[result] - a[result]);
-   //          const productNew = product.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
-   //          setProducts(productNew)
-   //          setOption(product)
-   //          setCurrentPage(1)
-   //       }
-   //    }
-   //    else {
-   //       setProducts(products)
-
-   //    }
-   // }
-
    const handleChangeSale = (value: string) => {
       setSortSale(value)
       setSortPrice("Price")
@@ -345,6 +294,7 @@ const Product: FC = () => {
          setProducts(products)
       }
    }
+
    const Filter = (valueOfFilter: string | any) => {
       setFilter(valueOfFilter)
       Unique_propertyForFilter(valueOfFilter)
@@ -574,59 +524,60 @@ const Product: FC = () => {
                         </h1>
                      </div>
                   )}
-                  {products?.filter((n: any) => {
-                     if (research === "") return n;
-                     else if (
-                        n.name.toLowerCase().includes(research.toLowerCase())
-                     ) {
-                        return n;
-                     }
-                  })?.map((item: any, index: number) => {
-                     const { id_product, img } = item;
-                     return (
-                        <div className="product" key={index}>
-                           {item.sale !== 0 ? (
-                              <div className="sale">
-                                 <p className='sales'>{item.sale}%</p>
-                                 <p className="newprice">
-                                    {
-                                       item.price
-                                    }$
-                                 </p>
-                                 <p className="old_price">
+                  {loadingState ? (
+                     <div className="loading">
+                        <h1>Loading...</h1>
+                     </div>
+                  ) :
+                     products?.map((item: any, index: number) => {
+                        const { id_product, img } = item;
+                        return (
+                           <div className="product" key={index}>
+                              {item.sale !== 0 ? (
+                                 <div className="sale">
+                                    <p className='sales'>{item.sale}%</p>
+                                    <p className="newprice">
+                                       {
+                                          item.price
+                                       }$
+                                    </p>
+                                    <p className="old_price">
 
-                                    {
-                                       Math.round(item.price + (item.price * item.sale) / 100)
-                                    }$
+                                       {
+                                          Math.round(item.price + (item.price * item.sale) / 100)
+                                       }$
 
-                                 </p>
+                                    </p>
 
 
-                              </div>
-                           ) :
-                              <div className="sale">
-                                 {item.price}$
-                              </div>
-
-                           }
-                           <div className="choise_product">
-                              <div className="blocks">
-                                 <div className="block">
-                                    <p onClick={() => AddToBasket(item)}> 🛒</p>
                                  </div>
-                                 <div className="block">
-                                    <Link to={`/product/:${id_product}`}>
-                                       <p>🔍</p>
-                                    </Link>
+                              ) :
+                                 <div className="sale">
+                                    {item.price}$
+                                 </div>
+
+                              }
+                              <div className="choise_product">
+                                 <div className="blocks">
+                                    <div className="block">
+                                       <p onClick={() => AddToBasket(item)}> 🛒</p>
+                                    </div>
+                                    <div className="block">
+                                       <Link to={`/product/:${id_product}`}>
+                                          <p>🔍</p>
+                                       </Link>
+                                    </div>
                                  </div>
                               </div>
+                              <img src={img} alt={item.category}
+                              />
                            </div>
-                           <img src={img} alt={item.category}
-                           />
-                        </div>
+                        )
+                     }
                      )
                   }
-                  )}
+
+
                </div>
 
             </div>

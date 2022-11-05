@@ -22,7 +22,7 @@ const Navbar: FC<INavbar> = ({ count }) => {
 
    const handleExit = () => {
       dispatch(LogoutUser())
-      toast.success("Вы вышли из аккаунта")
+      toast.success("You are logged out")
       setState(false)
       dispatch(Reset())
    }

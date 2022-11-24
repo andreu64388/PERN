@@ -8,10 +8,11 @@ interface contactsTS {
    img: string;
    Link: string;
 }
+
 const contacts: contactsTS[] = [
-   { name: "VK", img: "https://cdn.icon-icons.com/icons2/1121/PNG/512/1486147202-social-media-circled-network10_79475.png", Link: "https://vk.com/andr15shev" },
-   { name: "Instagram", img: "https://cdn.icon-icons.com/icons2/1211/PNG/512/1491580635-yumminkysocialmedia26_83102.png", Link: "https://www.instagram.com/andr_15_sh/" },
-   { name: "Telegram", img: "https://cdn.icon-icons.com/icons2/2429/PNG/512/telegram_logo_icon_147228.png", Link: "https://github.com/andreu64388" },
+   { name: "VK", img: "http://localhost:3001/Social/Vk.png", Link: "https://vk.com/andr15shev" },
+   { name: "Instagram", img: "http://localhost:3001/Social/Insta.png", Link: "https://www.instagram.com/andr_15_sh/" },
+   { name: "Telegram", img: "http://localhost:3001/Social/Telegram.png", Link: "https://github.com/andreu64388" },
 ]
 const Footer: FC = () => {
    const [isWrite, setIsWrite] = useState<boolean>(false);
@@ -22,7 +23,6 @@ const Footer: FC = () => {
    return (
       <div className='footer'>
          <div className="wrapper">
-
             <div className="logo">
                <Link to="/">
                   WebShop
@@ -170,17 +170,7 @@ const SendDeveloper = ({ ChangeWrite }: any) => {
 
                </div>
 
-            </form>
-
-
-
-
-
-
-
-
-
-         </div>
+            </form>      </div>
       </div>
    )
 }

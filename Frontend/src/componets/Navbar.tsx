@@ -10,6 +10,7 @@ interface INavbar {
 }
 const Navbar: FC<INavbar> = ({ count }) => {
    const [state, setState] = useState<boolean>(false)
+   const [scroll, setScroll] = useState<boolean>(false)
    const { user } = useAppSelector(state => state.auth);
    const dispatch = useAppDispatch();
    const isAuth = useAppSelector(CheckIsAuth);
@@ -30,11 +31,24 @@ const Navbar: FC<INavbar> = ({ count }) => {
       window.scrollTo(0, 0)
       setState(false)
    }
+
+   //прии скролле увеличиваеться высота навбара
+
+   useEffect(() => {
+      window.addEventListener('scroll', () => {
+         if (window.scrollY > 0) {
+            setScroll(true)
+         } else {
+            setScroll(false)
+         }
+      })
+   }, [])
+
    const PathBasket = `/basket/:${user_id}`;
    const PathProfile = `/profile/:${user_id}`;
    return (
       <div className='header'>
-         <div className="wrapper">
+         <div className={scroll ? "wrapper" : "wrapper active"}>
             <div className="burger">
                <div id="nav-icon1"
                   className={state ? 'open' : ''}

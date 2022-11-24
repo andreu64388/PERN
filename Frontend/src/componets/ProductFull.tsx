@@ -134,8 +134,7 @@ const ProductFull: FC = () => {
          }
          console.log(comment)
          dispatch(UpdateComment(comment))
-         toast.success("Комментарий изменен")
-
+  
          setEditId("")
          setEdit(false)
          setValue('')

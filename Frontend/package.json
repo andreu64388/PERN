@@ -1,6 +1,6 @@
 {
   "name": "internet-shop",
-  "homepage": "https://andreu64388.gihub.io/PERN/frontend",
+  "homepage": "https://andreu64388.gihub.io/PERN/Frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,7 +12,7 @@
     "@types/node": "^16.11.41",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
-    "axios": "^1.1.3",
+    "axios": "^1. 1.3",
     "gh-pages": "^4.0.0",
     "multer": "^1.4.5-lts.1",
     "react": "^18.2.0",

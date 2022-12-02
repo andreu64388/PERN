@@ -80,7 +80,7 @@ class ProductController {
         [id_product, id_person]
       );
       const basket_person = await pool.query(
-        "SELECT * FROM basket WHERE id_person = $1",
+        "SELECT * FROM basket WHERE id_person = $1 order by id_basket desc",
         [id_person]
       );
 
@@ -109,7 +109,7 @@ class ProductController {
         }
       }
       const basket = await pool.query(
-        "SELECT basket.id_basket, basket.id_product, basket.id_person, basket.count, product.name, product.img, product.price, product.category, product.color, product.years, product.description, product.sale, product.count_in_shop, product.unique_property FROM basket INNER JOIN product ON basket.id_product = product.id_product WHERE basket.id_person = $1",
+        "SELECT basket.id_basket, basket.id_product, basket.id_person, basket.count, product.name, product.img, product.price, product.category, product.color, product.years, product.description, product.sale, product.count_in_shop, product.unique_property FROM basket INNER JOIN product ON basket.id_product = product.id_product WHERE basket.id_person = $1 order by basket.id_basket desc",
         [id_person]
       );
       const Path = "http://localhost:3001";
@@ -402,16 +402,24 @@ class ProductController {
       } = req.body;
       const comment = await pool.query(
         "INSERT INTO comment (id_product, id_person, description, time, date, person_name, image) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-        [id_product, id_person, description, time, date, person_name, image]
+        [
+          id_product,
+          id_person,
+          description,
+          new Date(time).getTime(),
+          date,
+          person_name,
+          image,
+        ]
       );
       const product = await pool.query(
-        "SELECT * FROM product WHERE id_product = $1",
+        "SELECT * FROM product WHERE id_product = $1 ",
         [id_product]
       );
 
       const Path = "http://localhost:3001";
       const NewComment = await pool.query(
-        "SELECT * FROM comment WHERE id_product = $1",
+        "SELECT * FROM comment WHERE id_product = $1 ORDER BY time",
         [id_product]
       );
 
@@ -438,18 +446,20 @@ class ProductController {
   async UpdateComment(req, res) {
     try {
       const { id_product, id_person, description, id_comment } = req.body;
-      const comment = await pool.query(
+      await pool.query(
         "UPDATE comment SET description = $1 WHERE id_product = $2 AND id_person = $3 AND id_comment = $4",
         [description, id_product, id_person, id_comment]
       );
       const product = await pool.query(
         "SELECT * FROM product WHERE id_product = $1",
+
         [id_product]
       );
 
       const Path = "http://localhost:3001";
+      //сделать order by date
       const NewComment = await pool.query(
-        "SELECT * FROM comment WHERE id_product = $1",
+        "SELECT * FROM comment WHERE id_product = $1 ORDER BY time",
         [id_product]
       );
       const productForSend = {
@@ -475,7 +485,7 @@ class ProductController {
   async DeleteComment(req, res) {
     try {
       const { id_comment, id_product, id_person } = req.body;
-      const comment = await pool.query(
+      await pool.query(
         "DELETE FROM comment WHERE id_comment = $1 AND id_product = $2 AND id_person = $3",
         [id_comment, id_product, id_person]
       );
@@ -485,7 +495,7 @@ class ProductController {
       );
       const Path = "http://localhost:3001";
       const NewComment = await pool.query(
-        "SELECT * FROM comment WHERE id_product = $1",
+        "SELECT * FROM comment WHERE id_product = $1 ORDER BY time",
         [id_product]
       );
       const productForSend = {

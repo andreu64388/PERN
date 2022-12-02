@@ -66,6 +66,7 @@ const ProductFull: FC = () => {
    const [name, setName] = useState<string>("")
    const [boolName, setBoolName] = useState<boolean>(false)
    const [FormBool, setFormBool] = useState<boolean>(false)
+
    const navigate = useNavigate();
    const dispatch = useAppDispatch()
 
@@ -134,7 +135,6 @@ const ProductFull: FC = () => {
          }
          console.log(comment)
          dispatch(UpdateComment(comment))
-  
          setEditId("")
          setEdit(false)
          setValue('')
@@ -147,7 +147,7 @@ const ProductFull: FC = () => {
          id_product: Number(id?.slice(1)),
          id_person: user?.id_person,
       }
-      toast.success("Комментарий удален")
+
 
       dispatch(DeleteComment(comment))
 
@@ -163,7 +163,6 @@ const ProductFull: FC = () => {
    }
    const handleBuyOrder = (item: any) => {
       setFormBool(true)
-
    }
 
    const handleKeyDown = (e: any) => {
@@ -183,7 +182,6 @@ const ProductFull: FC = () => {
          alert("Товар закончился")
       }
       else {
-
          const basket = {
             id_product: item.id_product,
             id_person: user?.id_person,
@@ -209,6 +207,15 @@ const ProductFull: FC = () => {
       return `${FormatWithZero(hours)}:${FormatWithZero(minutes)}:${FormatWithZero(seconds)}`;
 
    }
+   useEffect(() => {
+      if (FormBool) {
+         document.body.style.overflow = "hidden"
+      }
+      else {
+         document.body.style.overflow = "auto"
+      }
+   }, [FormBool])
+
    return (
       <div className='animate'>
          <div className="wrapper product_fulss">
@@ -320,45 +327,47 @@ const ProductFull: FC = () => {
                         <h1>Not comment</h1>
                      </div>
                   ) : (<>
-                     {productOne.comment?.map((item: any, index: number) => {
-                        const { date, description, person_name, id_comment, id_person, image } = item;
-                        return (
-                           <div key={index}>
-                              <div className="comment_block" >
-                                 <div className="comment_block_img">
-                                    <div className="blocks">
-                                       <img src={`http://localhost:3001/User/${image}`} alt="" />
-                                       <p>{person_name || "User "}</p>
+                     {productOne.comment?.
+                        map((item: any, index: any) => {
+                           const { date, description, person_name, id_comment, id_person, image } = item;
+
+
+                           return (
+                              <div
+                              >
+                                 <div className="comment_block"
+                                    key={index}
+                                 >
+                                    <div className="comment_block_img">
+                                       <div className="blocks">
+                                          <img src={`http://localhost:3001/User/${image}`} alt="" />
+                                          <p>{person_name || "User "
+                                          }</p>
+                                       </div>
+                                       <div className="Date">
+                                          <p className="time">
+                                             {FormateTime(date)}
+                                          </p>
+                                          <p>{date.slice(0, 10)}</p>
+                                       </div>
                                     </div>
-                                    <div className="Date">
-
-                                       <p className="time">
-                                          {FormateTime(date)}
-
-                                       </p>
-                                       <p>{date.slice(0, 10)}</p>
-
+                                    <div className="comment_block_text">
+                                       <p>{description}</p>
                                     </div>
+
+                                    {user?.id_person === id_person && (
+                                       <div className="buttons" style={editId === id_comment ? { opacity: 0 } : { opacity: 1 }}>
+                                          <button className='test_button' onClick={() => handleEdit(item, id_comment)}>Edit</button>
+                                          <button className='test_button' onClick={() => DeleteComments(Number(item.id_comment))}>Delete</button>
+                                       </div>
+                                    )}
 
                                  </div>
-
-                                 <div className="comment_block_text">
-                                    <p>{description}</p>
-                                 </div>
-
-                                 {user?.id_person === id_person && (
-                                    <div className="buttons" style={editId === id_comment ? { opacity: 0 } : { opacity: 1 }}>
-                                       <button className='test_button' onClick={() => handleEdit(item, id_comment)}>Edit</button>
-                                       <button className='test_button' onClick={() => DeleteComments(Number(item.id_comment))}>Delete</button>
-                                    </div>
-                                 )}
-
                               </div>
-                           </div>
-                        )
-                     })}
+                           )
+                        })}
                   </>)}
-               </div   >
+               </div >
                <div className="inputs_register">
                   <div className="input_register">
                      <button
@@ -381,10 +390,11 @@ const ProductFull: FC = () => {
 
                   </div>
                </div>
-            </div>
-         </div>
+            </div >
+         </div >
          <Footer />
       </div >
    )
 }
 export default ProductFull
+

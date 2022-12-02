@@ -19,6 +19,22 @@ const Footer: FC = () => {
    const ChangeWrite = (state: boolean) => {
       setIsWrite(state);
    }
+   useEffect(() => {
+      if (isWrite) {
+         window.addEventListener("scroll", () => {
+
+            setIsWrite(false);
+         })
+      }
+
+      return () => {
+         window.removeEventListener("scroll", () => {
+            setIsWrite(false);
+         })
+      }
+
+   }, [isWrite]);
+
 
    return (
       <div className='footer'>

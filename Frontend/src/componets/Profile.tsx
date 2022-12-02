@@ -74,6 +74,52 @@ const Profile: FC = () => {
       setImage(img);
       setModalImage(true);
    }
+   useEffect(() => {
+      if (modal) {
+         window.addEventListener('scroll', () => {
+            setModal(false);
+
+
+         });
+      }
+      return () => {
+         window.removeEventListener('scroll', () => {
+            setModal(false);
+         });
+      }
+   }, [modal]);
+
+   useEffect(() => {
+      if (modalBool) {
+         window.addEventListener('scroll', () => {
+            setModalBool(false);
+         }
+         );
+      }
+      return () => {
+         window.removeEventListener('scroll', () => {
+            setModalBool(false);
+         });
+      }
+   }, [modalBool]);
+
+   useEffect(() => {
+      if (modalImage) {
+         window.addEventListener('scroll', () => {
+            setModalImage(false);
+         }
+         );
+      }
+      return () => {
+         window.removeEventListener('scroll', () => {
+            setModalImage(false);
+         });
+      }
+   }, [modalImage]);
+
+
+
+
    return (
       <div className="animate">
          <div className='wrapper'>

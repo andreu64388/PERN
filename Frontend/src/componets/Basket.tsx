@@ -8,7 +8,7 @@ import Forms from './Forms';
 
 const Basket: FC = () => {
    const { id } = useParams();
-   const { basket, sum } = useAppSelector(state => state.product);
+   const { basket, sum }: any = useAppSelector(state => state.product);
    const { user } = useAppSelector(state => state.auth);
    const [state, setState] = useState<any>([])
    const [FormBool, setFormBool] = useState<boolean>(false)
@@ -55,6 +55,19 @@ const Basket: FC = () => {
       }
       dispatch(DeleteBasket(basket))
    }
+   useEffect(() => {
+      if (FormBool) {
+         document.body.style.overflow = "hidden";
+      }
+      else {
+         document.body.style.overflow = "auto";
+      }
+   }, [FormBool])
+ 
+
+    
+
+
 
    return (
       <div
@@ -75,33 +88,34 @@ const Basket: FC = () => {
                </p>
                <div className="wrapper bas">
                   <div className="basket">
-                     {state?.map((item: any, index: any) => {
-                        const { id_product, name, img, count } = item;
-                        return (
-                           <div className="product" key={index}>
-                              <div className="id">
-                                 <p>{index + 1}</p>
+                     {Array.isArray(state) &&
+                        state?.map((item: any, index: any) => {
+                           const { id_product, name, img, count } = item;
+                           return (
+                              <div className="product" key={img}>
+                                 <div className="id">
+                                    <p>{index + 1}</p>
+                                 </div>
+                                 <div className="img">
+                                    <Link to={`/product/:${id_product}`}>
+                                       <img src={img} alt="" />
+                                    </Link>
+                                 </div>
+                                 <div className="name">
+                                    <Link to={`/product/:${id_product}`}>
+                                       <p>{name}</p>
+                                    </Link>
+                                 </div>
+                                 <div className="buttons_add_del">
+                                    <button className='add' onClick={() => AddToBasket(item)}>Add</button>
+                                    <p className='count'><p>{count || 0}</p></p>
+                                    <button className='del'
+                                       onClick={() => DeleteToBasket(item)}
+                                    >Del</button>
+                                 </div>
                               </div>
-                              <div className="img">
-                                 <Link to={`/product/:${id_product}`}>
-                                    <img src={img} alt="" />
-                                 </Link>
-                              </div>
-                              <div className="name">
-                                 <Link to={`/product/:${id_product}`}>
-                                    <p>{name}</p>
-                                 </Link>
-                              </div>
-                              <div className="buttons_add_del">
-                                 <button className='add' onClick={() => AddToBasket(item)}>Add</button>
-                                 <p className='count'><p>{count || 0}</p></p>
-                                 <button className='del'
-                                    onClick={() => DeleteToBasket(item)}
-                                 >Del</button>
-                              </div>
-                           </div>
-                        )
-                     })}
+                           )
+                        })}
                   </div>
 
                   <div className="title_list">
@@ -111,6 +125,8 @@ const Basket: FC = () => {
                   </div>
                </div>
                {FormBool && <Forms changeBool={changeBool} cost={sum}
+
+
                   products={state}
                />}
             </>

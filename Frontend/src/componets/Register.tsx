@@ -23,6 +23,7 @@ const Register: FC = () => {
    }
       , []);
 
+
    useEffect(() => {
       if (message) {
          if (message === "User registered successfully") toast.success(message);
@@ -127,6 +128,20 @@ const Register: FC = () => {
    const ChangePhoto = (modal: boolean) => {
       setPhotoBool(modal);
    }
+
+   useEffect(() => {
+      if (photoBool) {
+         window.addEventListener('scroll', () => {
+            setPhotoBool(false);
+         });
+      }
+      return () => {
+         window.removeEventListener('scroll', () => {
+            setPhotoBool(false);
+         });
+      }
+   }, [photoBool]);
+
 
    return (
       <div className='animate'>

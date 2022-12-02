@@ -1,7 +1,7 @@
 import { Router } from "express";
 import ProductController from "../сontroller/product.controller.js";
 
-const router = Router();
+const    router = Router();
 
 router.get("/product/getproducts", ProductController.GetProducts);
 router.get("/product/getproduct/:id", ProductController.GetProduct);

@@ -86,7 +86,6 @@ export const UpdateComment = createAsyncThunk(
         id_person,
         id_product,
       });
-
       return data;
     } catch (error) {
       console.log(error);

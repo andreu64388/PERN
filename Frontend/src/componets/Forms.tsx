@@ -23,7 +23,6 @@ const Forms: FC<IProps> = ({ changeBool, cost, products }) => {
    const [addres, setAdress] = useState<string>("")
    const [house, setHouse] = useState<string>("")
    const dispatch = useAppDispatch();
-
    const handleClick = (product: any) => {
       for (let i = 0; i < product.length; i++) {
          const order = {

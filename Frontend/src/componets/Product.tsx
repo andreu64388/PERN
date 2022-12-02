@@ -62,7 +62,25 @@ const Product: FC = () => {
       setFilter(product)
       setLoadingState(loading)
 
+
    }, []);
+   useEffect(() => {
+      const interval = setTimeout(() => {
+         setSortPrice("");
+         setSortYear("");
+         setSortSale("");
+         setResearch("")
+         setCurrentPage(1)
+         setProducts(products)
+         setOption(product)
+         Filter(products)
+      }
+         , 200)
+      return () => {
+         clearTimeout(interval)
+      }
+
+   }, [])
 
    useEffect(() => {
       setProducts(product)

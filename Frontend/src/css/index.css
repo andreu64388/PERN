@@ -2519,7 +2519,7 @@ a {
     overflow: scroll;
     display: flex;
     gap: 5px;
-    height: 280px;
+    height: 295px;
     overflow: auto;
     flex-direction: column;
   }

@@ -214,7 +214,7 @@ const Register: FC = () => {
                         onClick={
                            () => setImage(null)
                         }>
-                        Cansel
+                        Cancel
                      </button>
                   </>)}
 

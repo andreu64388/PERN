@@ -142,7 +142,7 @@ class ProductController {
     try {
       const person_id = req.params.id.slice(1);
       const basket = await pool.query(
-        "SELECT basket.id_basket, basket.id_product, basket.id_person, basket.count, product.name, product.img, product.price, product.category, product.color, product.years, product.description, product.sale, product.count_in_shop, product.unique_property FROM basket INNER JOIN product ON basket.id_product = product.id_product WHERE basket.id_person = $1",
+        "SELECT basket.id_basket, basket.id_product, basket.id_person, basket.count, product.name, product.img, product.price, product.category, product.color, product.years, product.description, product.sale, product.count_in_shop, product.unique_property FROM basket INNER JOIN product ON basket.id_product = product.id_product WHERE basket.id_person = $1 order by id_basket desc",
         [person_id]
       );
       const Path = "http://localhost:3001";
@@ -214,7 +214,7 @@ class ProductController {
       }
 
       const basket = await pool.query(
-        "SELECT basket.id_product, basket.id_person, basket.count, product.name, product.img, product.price, product.category, product.color, product.years, product.description, product.sale, product.count_in_shop, product.unique_property FROM basket INNER JOIN product ON basket.id_product = product.id_product WHERE basket.id_person = $1",
+        "SELECT basket.id_product, basket.id_person, basket.count, product.name, product.img, product.price, product.category, product.color, product.years, product.description, product.sale, product.count_in_shop, product.unique_property FROM basket INNER JOIN product ON basket.id_product = product.id_product WHERE basket.id_person = $1 order by id_basket desc",
         [id_person]
       );
       const Path = "http://localhost:3001";
@@ -521,7 +521,7 @@ class ProductController {
   async GetPersons(req, res) {
     try {
       const TopPersons = await pool.query(
-        "SELECT  person.id_person, person.name, person.surname, sum(buy.count) AS count FROM person INNER JOIN buy ON person.id_person = buy.id_person GROUP BY person.id_person, person.name, person.surname ORDER BY count DESC"
+        "SELECT  person.id_person, person.name, person.surname, sum(buy.count) AS count FROM person INNER JOIN buy ON person.id_person = buy.id_person GROUP BY person.id_person, person.name, person.surname"
       );
       var TopPersonsForSend = [];
       for (let i = 0; i < TopPersons.rows.length; i++) {

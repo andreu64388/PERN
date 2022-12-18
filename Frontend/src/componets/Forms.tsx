@@ -18,7 +18,7 @@ const Forms: FC<IProps> = ({ changeBool, cost, products }) => {
    const [mobile, setMobile] = useState<string>("");
    const [gmail, setGmail] = useState<string>("");
    const [password, setPassword] = useState<string>("");
-   const { user, loading, message } = useAppSelector((state: any): any => state.auth);
+   const { user, loading, message }: any = useAppSelector((state: any): any => state.auth);
    const [country, setCountry] = useState<string>("")
    const [addres, setAdress] = useState<string>("")
    const [house, setHouse] = useState<string>("")

@@ -19,7 +19,7 @@ const Profile = lazy(() => import('./componets/Profile'));
 function App() {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(CheckIsAuth);
-  const { token, user } = useAppSelector(state => state.auth);
+  const { token, user }: any = useAppSelector(state => state.auth);
   const { basket_length } = useAppSelector(state => state.product);
   const [count, setCount] = useState<number>(basket_length);
   useEffect

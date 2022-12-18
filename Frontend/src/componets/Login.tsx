@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../store/store';
 import Footer from './Footer';
 
 const Login: FC = () => {
-   const { message, token, user } = useAppSelector(state => state.auth);
+   const { message, token, user }: any = useAppSelector(state => state.auth);
    const [name, setName] = useState<string>('');
    const [password, setPassword] = useState<string>('');
    const navigate = useNavigate();
@@ -44,7 +44,7 @@ const Login: FC = () => {
       }
       dispatch(LoginUser({ name, password }));
    }
-   
+
    const TryNameRegexp = (e: ChangeEvent<HTMLInputElement>) => {
       const regexp = /^[a-zA-Zа-яА-Я ]+$/;
       const name = e.target.value;

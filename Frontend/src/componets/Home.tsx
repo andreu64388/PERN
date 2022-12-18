@@ -8,7 +8,6 @@ import { useAppSelector } from '../store/store';
 import Footer from './Footer';
 import Slider_products from './Slider_products';
 const Home: FC = () => {
-
    useEffect(() => {
       window.scrollTo(0, 0);
    }, []);

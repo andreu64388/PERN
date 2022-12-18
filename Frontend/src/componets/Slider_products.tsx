@@ -51,7 +51,7 @@ interface Sliders {
 
 const Slider_products: FC<Sliders> = ({ category, product }) => {
    const dispatch = useDispatch()
-   const { user } = useAppSelector(state => state.auth)
+   const { user }: any = useAppSelector(state => state.auth)
    const AddToBasket = (item: any) => {
 
       const basket = {

@@ -10,7 +10,7 @@ import Footer from './Footer';
 const Profile: FC = () => {
    const [modal, setModal] = React.useState(false);
    const { id } = useParams();
-   const { user } = useAppSelector(state => state.auth);
+   const { user }: any = useAppSelector(state => state.auth);
    const { orders, top_persons } = useAppSelector(state => state.product);
    const [order, setOrder] = useState<any[]>(orders);
    const [show, setShow] = useState<boolean>(false);
@@ -337,7 +337,7 @@ const Modal: FC<IModal> = ({ changeModal }) => {
    const [newPassword, setNewPassword] = useState<string>("");
    const [DeletePassword, setDeletePassword] = useState<string>("");
    const [boolDeletePassword, setBoolDeletePassword] = useState<boolean>(false);
-   const { user, message } = useAppSelector(state => state.auth);
+   const { user, message }: any = useAppSelector(state => state.auth);
    const dispatch = useAppDispatch();
 
    useEffect(() => {
@@ -583,7 +583,7 @@ interface IModalPhoto {
 }
 const ModalPhoto: FC<IModalPhoto> = ({ ChangeModal }) => {
    const [image, setImage] = useState<any>(null);
-   const { user } = useAppSelector(state => state.auth);
+   const { user }: any = useAppSelector(state => state.auth);
    const dispatch = useAppDispatch();
    const ChangeModals = (modal: boolean) => {
       ChangeModal(modal);

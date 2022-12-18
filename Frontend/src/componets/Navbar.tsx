@@ -11,7 +11,7 @@ interface INavbar {
 const Navbar: FC<INavbar> = ({ count }) => {
    const [state, setState] = useState<boolean>(false)
    const [scroll, setScroll] = useState<boolean>(false)
-   const { user } = useAppSelector(state => state.auth);
+   const { user }: any = useAppSelector(state => state.auth);
    const dispatch = useAppDispatch();
    const isAuth = useAppSelector(CheckIsAuth);
    const [user_id, setUser_id] = useState<number>(user?.id_person)

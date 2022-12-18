@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../store/store';
 import Footer from './Footer';
 const Register: FC = () => {
 
-   const { message, auth, token, user } = useAppSelector(state => state.auth);
+   const { message, auth, token, user }: any = useAppSelector(state => state.auth);
    const [name, setName] = useState<string>('');
    const [surname, setSurname] = useState<string>('');
    const [password, setPassword] = useState<string>('');

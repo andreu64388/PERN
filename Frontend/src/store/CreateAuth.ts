@@ -165,7 +165,7 @@ export const UpdateImage = createAsyncThunk(
     }
   }
 );
-export const authSlice = createSlice({
+export const authSlice:any = createSlice({
   name: "auth",
   initialState,
   reducers: {

@@ -56,7 +56,7 @@ const ProductFull: FC = () => {
    const { id } = useParams();
    const id_product = Number(id);
    const { productID, product } = useAppSelector(state => state.product);
-   const { user } = useAppSelector(state => state.auth);
+   const { user }: any = useAppSelector(state => state.auth);
    const [value, setValue] = useState<string>("")
    const [edit, setEdit] = useState<boolean>(false)
    const [products, setProducts] = useState<any>(product)

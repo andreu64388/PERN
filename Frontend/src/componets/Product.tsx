@@ -7,7 +7,7 @@ import Footer from './Footer';
 const Product: FC = () => {
 
    const { product, loading } = useAppSelector(state => state.product);
-   const { user } = useAppSelector(state => state.auth);
+   const { user }: any = useAppSelector(state => state.auth);
    const [products, setProducts] = useState<any>(product);
    const [sortPrice, setSortPrice] = useState<string>("");
    const [sortYear, setSortYear] = useState<string>("")

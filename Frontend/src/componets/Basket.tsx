@@ -9,7 +9,7 @@ import Forms from './Forms';
 const Basket: FC = () => {
    const { id } = useParams();
    const { basket, sum }: any = useAppSelector(state => state.product);
-   const { user } = useAppSelector(state => state.auth);
+   const { user }: any = useAppSelector(state => state.auth);
    const [state, setState] = useState<any>([])
    const [FormBool, setFormBool] = useState<boolean>(false)
 

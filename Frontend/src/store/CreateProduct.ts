@@ -215,7 +215,8 @@ export const GetTopPersons = createAsyncThunk(
   async () => {
     try {
       const { data } = await axios.get("/product/gettoppersons");
-
+      alert("данные пришли");
+      console.log(data);
       return data;
     } catch (error) {
       console.log(error);

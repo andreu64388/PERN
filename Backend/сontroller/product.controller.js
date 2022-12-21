@@ -521,7 +521,7 @@ class ProductController {
   async GetPersons(req, res) {
     try {
       const TopPersons = await pool.query(
-        "SELECT  person.id_person, person.name, person.surname, sum(buy.count) AS count FROM person INNER JOIN buy ON person.id_person = buy.id_person GROUP BY person.id_person, person.name, person.surname"
+        "SELECT person.id_person, person.name, person.surname, sum(buy.count) AS count FROM person INNER JOIN buy ON person.id_person = buy.id_person GROUP BY person.id_person, person.name, person.surname ORDER BY count DESC"
       );
       var TopPersonsForSend = [];
       for (let i = 0; i < TopPersons.rows.length; i++) {
@@ -531,7 +531,7 @@ class ProductController {
           id_person: element.id_person,
           name: element.name,
           surname: element.surname,
-          count: element.count,
+          count: Number(element.count),
         });
       }
       res.json(TopPersonsForSend.slice(0, 5));
